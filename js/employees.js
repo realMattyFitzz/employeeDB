@@ -1,5 +1,5 @@
 const cTable = require('console.table');
-const con = require('../db/database');
+const connect = require('../db/database');
 
 //add a new Employee
 const addEmployee = (employee) => {
@@ -29,7 +29,7 @@ const addEmployee = (employee) => {
         }
     }
     
-    return con.promise().query(
+    return connect.promise().query(
         `INSERT INTO employees SET ?`,
         data,
         )
@@ -55,7 +55,7 @@ const updateRole = (data)=>{
     let splitId = data.role.split(".");
     let roleId = parseInt(splitId[0]);
 
-    return con.promise().query(
+    return connect.promise().query(
         `UPDATE employees SET ? WHERE employees.id = ?`,
         [{role_id: roleId }, employeeId]
         )
@@ -102,7 +102,7 @@ const displayAllEmployees = (view) => {
         ORDER BY name;`
     }
 
-    return con.promise().query(param)
+    return connect.promise().query(param)
         .then(([rows, fields]) => {
             console.log('Employees......')
             console.table(rows);
@@ -116,7 +116,7 @@ const displayAllEmployees = (view) => {
 
 //Get All Employees to be use to create a new employee
 const getAllEmployees = () => {
-    return con.promise().query(
+    return connect.promise().query(
         `SELECT id , first_name, last_name
          FROM employees`)
 };
@@ -138,7 +138,7 @@ const updateManager = (data)=>{
     } else if(data.manager === 'None'){
         param = [null, employeeId]
     }
-    return con.promise().query(
+    return connect.promise().query(
         `UPDATE employees SET manager_id = ? WHERE employees.id = ?`,
         param
         )
@@ -158,7 +158,7 @@ const deleteEmployee = (data)=> {
     // to get the Id from the employee string
     let getId = data.employee.split(".");
     id = parseInt(getId[0]);
-    return con.promise().query(
+    return connect.promise().query(
         `DELETE FROM employees WHERE employees.id = ?`, id)
         .then(([rows, fields]) => {
             console.log(`employee ${getId[1]} deleted`)

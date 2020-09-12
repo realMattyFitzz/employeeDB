@@ -3,7 +3,7 @@ const { displayAllDepartments, addDepartment, getAllDepartments, deleteDep, view
 const { displayAllRoles, addRole, getAllRoles, deleteRole } = require('../js/roles');
 const { addEmployee, updateRole, displayAllEmployees, getAllEmployees, updateManager, deleteEmployee} = require('../js/employees');
 const {MenuQuestions, addDepartmentQuestions, addRoleQuestions, addEmployeeQuestions, UpdEmpRoleQuestions, updateMangerQuestions, deleteEmployeeQuestions, deleteDepQuestions, deleteRoleQuestions, viewBudgetQuestions} = require('../js/questions')
-const con = require('../db/database');
+const connect = require('../db/database');
 
 
 //display menu
